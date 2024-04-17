@@ -13,6 +13,16 @@ public class MainMenu : MonoBehaviour
         DataPersistenceManager.instance.NewGame();
     }
 
+    public void OnNewGameClicked()
+    {
+        DataPersistenceManager.instance.NewGame();
+    }
+
+    public void OnLoadGameClicked()
+    {
+        DataPersistenceManager.instance.LoadGame();
+    }
+
     public void OpenOptions()
     {
         SceneManager.LoadSceneAsync("OptionsMenu");
@@ -28,4 +38,5 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+   
 }

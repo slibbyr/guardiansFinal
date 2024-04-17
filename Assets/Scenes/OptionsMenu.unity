@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 425866567}
   - component: {fileID: 425866571}
   - component: {fileID: 425866572}
+  - component: {fileID: 425866573}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -516,8 +517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ff923403f5b6a4cb892d4c1156d695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 9d06e5fd7b978944a9fc826c09bc02f0, type: 2}
-  volumeSlider: {fileID: 0}
 --- !u!114 &425866572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +529,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5ce8feec3cb484dafbbcf71b5fd1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &425866573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425866566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11d38b5c036da944aaffc8e446a0afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 95c97619b15b698478295ae812088caa, type: 2}
+  volumeSlider: {fileID: 1685714401}
 --- !u!1 &481868889
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +555,8 @@ GameObject:
   - component: {fileID: 481868891}
   - component: {fileID: 481868890}
   - component: {fileID: 481868893}
+  - component: {fileID: 481868894}
+  - component: {fileID: 481868895}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -633,6 +648,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a5ce8feec3cb484dafbbcf71b5fd1ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &481868894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481868889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11d38b5c036da944aaffc8e446a0afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 0}
+  volumeSlider: {fileID: 0}
+--- !u!114 &481868895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481868889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eb9b2a4d148134d9c41cc6386af91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &658633909
@@ -1193,19 +1234,19 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Bajo
+    - m_Text: Alto
       m_Image: {fileID: 0}
     - m_Text: Medio
       m_Image: {fileID: 0}
-    - m_Text: Alto
+    - m_Text: Bajo
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 425866571}
+      - m_Target: {fileID: 425866566}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SetQuality
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1335,7 +1376,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 481868893}
+      - m_Target: {fileID: 481868895}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: GoBackMain
         m_Mode: 1
@@ -1791,7 +1832,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bajo
+  m_text: Alto
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1959,7 +2000,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 425866571}
+      - m_Target: {fileID: 425866573}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
@@ -1980,10 +2021,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1685714399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ff923403f5b6a4cb892d4c1156d695, type: 3}
+  m_Script: {fileID: 11500000, guid: f11d38b5c036da944aaffc8e446a0afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 95c97619b15b698478295ae812088caa, type: 2}
   volumeSlider: {fileID: 1685714401}
 --- !u!1 &1690743802
 GameObject:

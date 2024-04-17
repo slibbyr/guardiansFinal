@@ -14,7 +14,7 @@ public class HealAllButton : MonoBehaviour
         healingFacade = new HealingFacade(heroes);
 
         Button button = GetComponent<Button>();
-        button.onClick.AddListener(HealAllHeroes);
+        //button.onClick.AddListener(HealAllHeroes);
         Debug.Log("Healing all Heroes");
     }
 

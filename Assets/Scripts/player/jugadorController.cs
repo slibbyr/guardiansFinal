@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; 
 
+public class jugadorController : MonoBehaviour, IDataPersistence
 
-public class jugadorController : MonoBehaviour
 {
     public int velocidad;
 
@@ -77,16 +77,26 @@ public class jugadorController : MonoBehaviour
         }
     }
 
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = this.transform.position;
+     }
     void CheckForEncounters()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Enemigos);
 
         foreach (Collider2D collider in colliders)
         {
-            Debug.Log("¡Batalla iniciada con el enemigo!");
+            Debug.Log("Â¡Batalla iniciada con el enemigo!");
 
             SceneManager.LoadScene(Battle);
         }
     }
+    
 }
 

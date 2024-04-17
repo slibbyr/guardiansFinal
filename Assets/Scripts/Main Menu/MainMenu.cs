@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync("town");
+        DataPersistenceManager.instance.NewGame();
     }
 
     public void OnNewGameClicked()

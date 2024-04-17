@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +8,6 @@ public class FileDataHandler
 {
     private string dataDirPath = "";
     private string dataFileName = "";
-    private bool useEncryption = false;
-    private readonly string encryptionCodeWord = "word";
-    private readonly string backupExtension = ".bak";
 
     public FileDataHandler(string dataDirPath, string dataFileName)
     {
@@ -19,22 +15,15 @@ public class FileDataHandler
         this.dataFileName = dataFileName;
     }
 
-    public GameData Load(string profileId, bool allowRestoreFromBackup = true)
+    public GameData Load()
     {
-        // base case - if the profileId is null, return right away
-        if (profileId == null)
-        {
-            return null;
-        }
 
-        // use Path.Combine to account for different OS's having different path separators
         string fullPath = Path.Combine(dataDirPath, dataFileName);
         GameData loadedData = null;
         if (File.Exists(fullPath))
         {
             try
             {
-                // load the serialized data from the file
                 string dataToLoad = "";
                 using (FileStream stream = new FileStream(fullPath, FileMode.Open))
                 {
@@ -47,9 +36,8 @@ public class FileDataHandler
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch (Exception e)
-            {      
-                Debug.LogError("Error occured when trying to load file at path: "
-                        + fullPath + " and backup did not work.\n" + e);
+            {
+                    Debug.LogError("Error occured when trying to load file at path: " + fullPath + " and backup did not work.\n" + e);
             }
         }
         return loadedData;
@@ -57,9 +45,9 @@ public class FileDataHandler
 
     public void Save(GameData data)
     {
-  
         string fullPath = Path.Combine(dataDirPath, dataFileName);
-        string backupFilePath = fullPath + backupExtension;
+        Debug.Log("Saving game file");
+
         try
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
@@ -73,12 +61,11 @@ public class FileDataHandler
                     writer.Write(dataToStore);
                 }
             }
-
         }
         catch (Exception e)
         {
             Debug.LogError("Error occured when trying to save data to file: " + fullPath + "\n" + e);
         }
     }
-
 }
+

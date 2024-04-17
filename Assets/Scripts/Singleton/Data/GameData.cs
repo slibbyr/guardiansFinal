@@ -1,23 +1,28 @@
 using Product;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class GameData
 {
-
-    public string heroName;
+    public Vector3 playerPosition;
+    public string name;
     public int heroClass;
     public int defense;
     public int maxHP;
     public int currentHP;
     public int attack;
+    public List<Hero> heroes;
+
     public Hero[] heroes;
 
     public bool gameCompleted;
 
     public GameData()
     {
-        this.heroName = "";
+        this.name = "Arian";
+        playerPosition = Vector3.zero;
         this.heroClass = 0;
         this.defense = 0;
         this.maxHP = 0;

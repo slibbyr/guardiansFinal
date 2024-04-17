@@ -1,73 +1,82 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
-    
-    
+
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
+    public GameObject prefabToInstantiate;
     public static DataPersistenceManager instance { get; private set; }
-     
 
     private void Awake()
     {
         if (instance != null)
         {
-            Debug.LogError("Se encontró más de un Data Persistence Manager en la misma escena.");
+            Debug.Log("Found more than one Data Persistence Manager in the scene. Destroying the newest one.");
+            Destroy(this.gameObject);
+            return;
         }
         instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
+        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
     }
 
-    private void Start()
-    {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
-        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        LoadGame();
-    }
 
     public void NewGame()
     {
         this.gameData = new GameData();
-        this.gameData.heroName = "Arion";
-        this.gameData.heroClass = 1; 
-        this.gameData.defense = 10; 
-        this.gameData.maxHP = 30; 
-        this.gameData.currentHP = 30; 
-        this.gameData.attack = 20; 
+        Debug.Log("This is a new game");
+
     }
 
     public void LoadGame()
     {
+
+        this.gameData = dataHandler.Load();
+
+        Debug.Log(gameData);
+
         if (this.gameData == null)
         {
-            Debug.Log("No se encontraron datos. Inicializando con valores predeterminados.");
             NewGame();
+        }
+
+
+        if (this.gameData == null)
+        {
+            Debug.Log("No data was found. A New Game needs to be started before data can be loaded.");
+            return;
         }
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
             dataPersistenceObj.LoadData(gameData);
         }
-
-        Debug.Log("Loaded data = " + gameData.heroName);
     }
 
     public void SaveGame()
     {
-        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        if (this.gameData == null)
         {
-            dataPersistenceObj.SaveData(gameData);
+            Debug.LogWarning("No data was found. A New Game needs to be started before data can be saved.");
+            return;
         }
 
-        Debug.Log("Saved data = " + gameData.heroName);
+        //foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        //{
+        //  dataPersistenceObj.SaveData(gameData);
+        //}
 
-        dataHandler.Save(gameData); 
+        Debug.Log("Game Saved");
+        dataHandler.Save(gameData);
     }
 
     private void OnApplicationQuit()
@@ -77,8 +86,23 @@ public class DataPersistenceManager : MonoBehaviour
 
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
+        // FindObjectsofType takes in an optional boolean to include inactive gameobjects
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
+
+    public void InstantiatePrefab()
+    {
+        if (prefabToInstantiate != null)
+        {
+            
+            Instantiate(prefabToInstantiate, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Prefab to instantiate is not assigned.");
+        }
+    }
+
 }

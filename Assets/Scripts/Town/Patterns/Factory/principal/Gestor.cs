@@ -15,7 +15,7 @@ public class Gestor : MonoBehaviour
 
     public void new_hero(int pHeroClass)
     {
-        AddHeroArray(gFabric.CreateHero(pHeroClass);
+        AddHeroArray(gFabric.CreateHero(pHeroClass));
     }
     private static void AddHeroArray(Hero pHero)
     {

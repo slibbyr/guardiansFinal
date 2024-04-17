@@ -15,7 +15,9 @@ public class Tavern : MonoBehaviour
 
     public void recluteHero()
     {
-        gestor.new_hero(selectedHero);
-        Debug.Log(gestor.getHeroData());
+        //gestor = GameObject.Find("Gestor").GetComponent<Gestor>();
+        Debug.Log("Click");
+       // gestor.new_hero(selectedHero);
+       // Debug.Log(gestor.getHeroData());
     }
 }

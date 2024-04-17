@@ -15,11 +15,14 @@ public class Gestor : MonoBehaviour
 
     public void new_hero(int pHeroClass)
     {
+        Debug.Log("Start adding array object");
         AddHeroArray(gFabric.CreateHero(pHeroClass));
+        Debug.Log("Finish adding array");
     }
     private static void AddHeroArray(Hero pHero)
     {
         arrHeroes.Add(pHero);
+        Debug.Log("Add hero call");
     }
 
     public string getHeroData()

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum CharacterState { ALIVE, DEAD }
@@ -23,7 +24,7 @@ public class BattleSystem : MonoBehaviour
 
     Unit playerUnit;
     Unit enemyUnit;
-    Unit enemyUnits = new Unit();
+    
 
     public Text dialogueText;
 
@@ -45,9 +46,25 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
 
-        playerHUD.SetHUD(playerUnit);
+        if (playerUnit.currentHP > 0)
+        {
+            
 
-        playerGO.transform.parent = transform;
+            playerHUD.SetHUD(playerUnit);
+
+            playerGO.transform.parent = transform;
+
+        } else
+        {
+            Destroy(transform.GetChild(0).gameObject);
+            currentCharacterIndex = (currentCharacterIndex + 1) % maxCharacters;
+            GameObject player = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
+            playerUnit = player.GetComponent<Unit>();
+
+            playerHUD.SetHUD(playerUnit);
+
+            player.transform.parent = transform;
+        }
 
     }
 
@@ -61,7 +78,6 @@ public class BattleSystem : MonoBehaviour
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "Un" + enemyUnit.unitName + "se acerca...";
-
 
         enemyHUD.SetHUD(enemyUnit);
 
@@ -137,11 +153,15 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    void EndBattle()
+    IEnumerator EndBattle()
     {
         if (state == BattleState.WON)
         {
             dialogueText.text = "Has ganado el combate";
+
+            yield return new WaitForSeconds(1f);
+
+            SceneManager.LoadScene(Cue)
         }
         else if (state == BattleState.LOST)
         {
@@ -195,6 +215,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PLAYERTURN;
         PlayerTurn();
     }
+
 
 
     public void OnAttackButton()

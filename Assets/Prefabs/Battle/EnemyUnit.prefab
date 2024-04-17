@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4259bee8c61e24f8a3cac323c528e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy1
+  unitName: Dragon Esqueleto
   unitLevel: 11
   damage: 11
   defense: 5

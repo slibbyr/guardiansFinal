@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum CharacterState { ALIVE, DEAD }
@@ -17,7 +19,10 @@ public class BattleSystem : MonoBehaviour
     private const int maxCharacters = 4;
 
     public GameObject[] playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
+
+    
+    
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
@@ -36,18 +41,25 @@ public class BattleSystem : MonoBehaviour
 
     public string DragonCave_1;
 
+    public int randomNumber;
+    
 
     void Start()
     {
+        randomNumber = UnityEngine.Random.Range(0, 3);
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
+
+    
+
     IEnumerator SetupBattle()
     {
+        
         SpawnCharater();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(enemyPrefab[randomNumber], enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
         dialogueText.text = "Un " + enemyUnit.unitName + " se acerca...";

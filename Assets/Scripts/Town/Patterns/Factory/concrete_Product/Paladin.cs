@@ -7,10 +7,13 @@ namespace ConcreteProduct
 {
     public class Paladin : Hero
     {
-        public Paladin(string nombre, int heroClass, int defense, int maxHP, int currentHP, int attack)
+        public Paladin()
         {
-            this.HeroClass = 1;
-            this.Nombre = "Paladin";
+        }
+
+        public Paladin(string name, int heroClass, int defense, int maxHP, int currentHP, int attack)
+        {
+            
         }
     }
 }

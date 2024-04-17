@@ -4,6 +4,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum CharacterState { ALIVE, DEAD }
@@ -22,6 +23,7 @@ public class BattleSystem : MonoBehaviour
 
     Unit playerUnit;
     Unit enemyUnit;
+    Unit enemyUnits = new Unit();
 
     public Text dialogueText;
 
@@ -43,12 +45,13 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
         playerUnit = playerGO.GetComponent<Unit>();
 
-
         playerHUD.SetHUD(playerUnit);
 
         playerGO.transform.parent = transform;
 
     }
+
+   
 
     IEnumerator SetupBattle()
     {
@@ -57,7 +60,7 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+        dialogueText.text = "Un" + enemyUnit.unitName + "se acerca...";
 
 
         enemyHUD.SetHUD(enemyUnit);
@@ -74,7 +77,7 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage, enemyUnit.defense);
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful!";
+        dialogueText.text = "El ataque fue exitoso";
 
         yield return new WaitForSeconds(2f);
 
@@ -94,7 +97,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = enemyUnit.unitName + " ataca!";
 
         yield return new WaitForSeconds(1f);
 
@@ -138,18 +141,18 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
-            dialogueText.text = "You won the battle!";
+            dialogueText.text = "Has ganado el combate";
         }
         else if (state == BattleState.LOST)
         {
-            dialogueText.text = "You were defeated.";
+            dialogueText.text = "Has sido derrotado";
         }
     }
 
     void PlayerTurn()
     {
 
-        dialogueText.text = "Choose an action:";
+        dialogueText.text = "Escogue tu accion:";
     }
 
     IEnumerator PlayerHeal()
@@ -157,7 +160,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit.Heal(5);
 
         playerHUD.SetHP(playerUnit.currentHP);
-        dialogueText.text = "You feel renewed strength!";
+        dialogueText.text = "Te has curado";
 
         yield return new WaitForSeconds(2f);
 
@@ -171,7 +174,7 @@ public class BattleSystem : MonoBehaviour
 
         SpawnCharater();
 
-        dialogueText.text = "Changed character";
+        dialogueText.text = "Cambio de personaje";
 
         yield return new WaitForSeconds(2f);
 
@@ -185,7 +188,7 @@ public class BattleSystem : MonoBehaviour
 
         SpawnCharater();
 
-        dialogueText.text = "Changed character";
+        dialogueText.text = "Cambio de personaje";
 
         yield return new WaitForSeconds(2f);
 

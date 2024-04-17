@@ -10,8 +10,8 @@ public class Hero_Factory : Abstract_Factory
     {
         switch (pHeroClass)
         {
-            case 1:
-                return new Paladin("Paladin", 1, 5, 50, 50, 25);
+            case 2:
+                return new Paladin("Paladin", 2, 5, 50, 50, 25);
                 break;
             default:
                 return new Paladin();

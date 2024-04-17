@@ -34,41 +34,14 @@ public class BattleSystem : MonoBehaviour
     public BattleState state;
     public CharacterState characterState;
 
+    public string DragonCave_1;
+
 
     void Start()
     {
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
-
-    void SpawnCharater()
-    {
-        GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
-
-        if (playerUnit.currentHP > 0)
-        {
-            
-
-            playerHUD.SetHUD(playerUnit);
-
-            playerGO.transform.parent = transform;
-
-        } else
-        {
-            Destroy(transform.GetChild(0).gameObject);
-            currentCharacterIndex = (currentCharacterIndex + 1) % maxCharacters;
-            GameObject player = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
-            playerUnit = player.GetComponent<Unit>();
-
-            playerHUD.SetHUD(playerUnit);
-
-            player.transform.parent = transform;
-        }
-
-    }
-
-   
 
     IEnumerator SetupBattle()
     {
@@ -77,7 +50,7 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-        dialogueText.text = "Un" + enemyUnit.unitName + "se acerca...";
+        dialogueText.text = "Un " + enemyUnit.unitName + " se acerca...";
 
         enemyHUD.SetHUD(enemyUnit);
 
@@ -85,6 +58,16 @@ public class BattleSystem : MonoBehaviour
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
+    }
+    void SpawnCharater()
+    {
+        GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
+        playerUnit = playerGO.GetComponent<Unit>();
+
+        playerHUD.SetHUD(playerUnit);
+
+        playerGO.transform.parent = transform;
+
     }
 
 
@@ -152,16 +135,19 @@ public class BattleSystem : MonoBehaviour
         }
 
     }
+    IEnumerator ChangeScene()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(DragonCave_1);
 
-    IEnumerator EndBattle()
+    }
+
+    void EndBattle()
     {
         if (state == BattleState.WON)
         {
             dialogueText.text = "Has ganado el combate";
-
-            yield return new WaitForSeconds(1f);
-
-            SceneManager.LoadScene(Cue)
+            ChangeScene();
         }
         else if (state == BattleState.LOST)
         {

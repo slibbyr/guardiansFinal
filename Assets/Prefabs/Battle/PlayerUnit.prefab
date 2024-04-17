@@ -134,5 +134,5 @@ MonoBehaviour:
   damage: 20
   defense: 5
   maxHP: 30
-  currentHP: 0
+  currentHP: 30
   UnitClass: 0

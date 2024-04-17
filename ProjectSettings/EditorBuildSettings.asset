@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DragonCave.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a297e7b8cd7d79842a61240e3a990bea
+  - enabled: 1
+    path: Assets/Scenes/OptionsMenu.unity
+    guid: 1be7452bfdc6c20429d24bf93669d157
+  - enabled: 1
+    path: Assets/Scenes/town.unity
+    guid: f75af42847730284d87c151c1dd8384e
   m_configObjects: {}

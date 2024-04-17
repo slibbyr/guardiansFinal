@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
     private FileDataHandler dataHandler;
 
 
+    public GameObject prefabToInstantiate;
     public static DataPersistenceManager instance { get; private set; }
 
     private void Awake()
@@ -72,11 +73,12 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
-        {
-            dataPersistenceObj.SaveData(gameData);
-        }
+        //foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
+        //{
+        //  dataPersistenceObj.SaveData(gameData);
+        //}
 
+        Debug.Log("Game Saved");
         dataHandler.Save(gameData);
     }
 
@@ -92,6 +94,19 @@ public class DataPersistenceManager : MonoBehaviour
             .OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
+    }
+
+    public void InstantiatePrefab()
+    {
+        if (prefabToInstantiate != null)
+        {
+            
+            Instantiate(prefabToInstantiate, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("Prefab to instantiate is not assigned.");
+        }
     }
 
 }

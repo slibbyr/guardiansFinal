@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 933753419}
   - component: {fileID: 933753421}
   m_Layer: 0
-  m_Name: MenuMusic
+  m_Name: MusicController
   m_TagString: MenuMusic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 933753418}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9b95ab83228055458ee12bf2a10fc0a, type: 3}
+  m_Script: {fileID: 11500000, guid: 688c58a6ff16b6243a5725d9fbe83ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1064159193
@@ -1405,6 +1405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: data123
+  prefabToInstantiate: {fileID: 6285077907824733541, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
 --- !u!4 &1540558977
 Transform:
   m_ObjectHideFlags: 0

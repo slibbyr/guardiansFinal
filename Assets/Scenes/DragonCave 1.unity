@@ -20243,7 +20243,7 @@ MonoBehaviour:
   Enemigos:
     serializedVersion: 2
     m_Bits: 512
-  escenaBatalla: 
+  Battle: Battle
 --- !u!50 &430904899
 Rigidbody2D:
   serializedVersion: 4

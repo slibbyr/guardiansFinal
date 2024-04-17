@@ -15,8 +15,6 @@ public class GameData
     public int attack;
     public List<Hero> heroes;
 
-    public Hero[] heroes;
-
     public bool gameCompleted;
 
     public GameData()
@@ -34,7 +32,7 @@ public class GameData
 
     public void PrintGameData()
     {
-        Debug.Log($"Hero Name: {heroName}");
+        Debug.Log($"Hero Name: {name}");
         Debug.Log($"Hero Class: {heroClass}");
         Debug.Log($"Defense: {defense}");
         Debug.Log($"Max HP: {maxHP}");

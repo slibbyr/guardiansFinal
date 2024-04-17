@@ -135,9 +135,9 @@ public class BattleSystem : MonoBehaviour
         }
 
     }
-    IEnumerator ChangeScene()
+    void ChangeScene()
     {
-        yield return new WaitForSeconds(1f);
+        
         SceneManager.LoadScene(DragonCave_1);
 
     }

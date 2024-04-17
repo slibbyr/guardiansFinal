@@ -10,7 +10,9 @@ public class jugadorController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private bool mirandoDerecha;
     private Animator animator;
-    
+    public LayerMask Enemigos;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class jugadorController : MonoBehaviour
     {
         procesarMovimiento();
         movimiento();
+        CheckForEncounters();
     }
 
     void movimiento(){
@@ -67,6 +70,17 @@ public class jugadorController : MonoBehaviour
        if ((mirandoDerecha == true && inputMovimiento < 0) || (mirandoDerecha == false && inputMovimiento > 0)){
             mirandoDerecha = !mirandoDerecha;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+        }
+    }
+
+    private void CheckForEncounters()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, Enemigos) != null)
+        {
+            if (Random.Range(1, 101) <= 100)
+            {
+                Debug.Log("Encuentro con enemigo");
+            }
         }
     }
 }

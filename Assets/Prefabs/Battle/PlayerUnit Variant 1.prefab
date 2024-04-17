@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 231968637435347313, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
+      propertyPath: m_Name
+      value: PartyMember2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574559508406642756, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1574559508406642756, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
+      propertyPath: m_Size.y
+      value: 1.125
+      objectReference: {fileID: 0}
     - target: {fileID: 1574559508406642756, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1192095154, guid: 8675a9594ab479d46b5c186d56d37696, type: 3}
+      objectReference: {fileID: -270242885, guid: 8675a9594ab479d46b5c186d56d37696, type: 3}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: maxHP
       value: 2

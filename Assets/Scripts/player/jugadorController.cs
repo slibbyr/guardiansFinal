@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
+
 
 public class jugadorController : MonoBehaviour
 {
@@ -12,6 +15,7 @@ public class jugadorController : MonoBehaviour
     private Animator animator;
     public LayerMask Enemigos;
 
+    public string Battle;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +31,7 @@ public class jugadorController : MonoBehaviour
     {
         procesarMovimiento();
         movimiento();
-        CheckForEncounters();
+
     }
 
     void movimiento(){
@@ -35,7 +39,7 @@ public class jugadorController : MonoBehaviour
         float movVertical = Input.GetAxis("Vertical");
 
         rbody.velocity = new Vector2(movHorizontal*velocidad, movVertical*velocidad);
-
+        CheckForEncounters();
 
     }
 
@@ -73,14 +77,16 @@ public class jugadorController : MonoBehaviour
         }
     }
 
-    private void CheckForEncounters()
+    void CheckForEncounters()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, Enemigos) != null)
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Enemigos);
+
+        foreach (Collider2D collider in colliders)
         {
-            if (Random.Range(1, 101) <= 100)
-            {
-                Debug.Log("Encuentro con enemigo");
-            }
+            Debug.Log("¡Batalla iniciada con el enemigo!");
+
+            SceneManager.LoadScene(Battle);
         }
     }
 }
+

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class jugadorController : MonoBehaviour
+public class jugadorController : MonoBehaviour, IDataPersistence
 {
     public int velocidad;
 
@@ -68,5 +67,15 @@ public class jugadorController : MonoBehaviour
             mirandoDerecha = !mirandoDerecha;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = this.transform.position;
     }
 }

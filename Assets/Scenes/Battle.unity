@@ -2194,9 +2194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Heal
-
-'
+  m_Text: Curar
 --- !u!222 &1679374786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2359,8 +2357,8 @@ MonoBehaviour:
   playerPrefab:
   - {fileID: 6285077907824733541, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
   - {fileID: 2550820505039809665, guid: 53ee6207d3133a44280e65c1e5ce59ba, type: 3}
-  - {fileID: 7439602580220787487, guid: a1588e5a5b1c2a04ca7cbd3cf003d0bb, type: 3}
-  - {fileID: 4612667619710968692, guid: c77430faa84b8514d9a5d46862eb1905, type: 3}
+  - {fileID: 7439602580220787487, guid: f185ff0ae2898ce49993060cd0079007, type: 3}
+  - {fileID: 2550820505039809665, guid: 53ee6207d3133a44280e65c1e5ce59ba, type: 3}
   enemyPrefab: {fileID: 4071343113960643537, guid: 7256f02e3621dae4fa0c3e7545b9ba41, type: 3}
   playerBattleStation: {fileID: 0}
   enemyBattleStation: {fileID: 0}
@@ -2369,6 +2367,7 @@ MonoBehaviour:
   enemyHUD: {fileID: 1290496122}
   state: 0
   characterState: 0
+  DragonCave_1: DragonCave 1
 --- !u!4 &1714929644
 Transform:
   m_ObjectHideFlags: 0
@@ -2661,7 +2660,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack
+  m_Text: Atacar
 --- !u!222 &1758120105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2815,7 +2814,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Change
+  m_Text: Cambiar
 --- !u!222 &1823764802
 CanvasRenderer:
   m_ObjectHideFlags: 0

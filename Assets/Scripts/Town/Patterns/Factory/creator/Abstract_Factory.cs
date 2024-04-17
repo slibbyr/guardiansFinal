@@ -5,5 +5,5 @@ using Product;
 
 public interface Abstract_Factory
 {
-    Hero CreateHero(string pNombre, int pHeroClass, int pDefense, int pMaxHP, int pCurrentHP, int pAttack);
+    Hero CreateHero(int pHeroClass);
 }

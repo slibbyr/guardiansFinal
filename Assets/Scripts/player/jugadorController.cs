@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 
-public class jugadorController : MonoBehaviour
+public class jugadorController : MonoBehaviour, IDataPersistence
+
 {
     public int velocidad;
 
@@ -10,7 +13,10 @@ public class jugadorController : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     private bool mirandoDerecha;
     private Animator animator;
-    
+    public LayerMask Enemigos;
+
+    public string Battle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +31,7 @@ public class jugadorController : MonoBehaviour
     {
         procesarMovimiento();
         movimiento();
+
     }
 
     void movimiento(){
@@ -32,7 +39,7 @@ public class jugadorController : MonoBehaviour
         float movVertical = Input.GetAxis("Vertical");
 
         rbody.velocity = new Vector2(movHorizontal*velocidad, movVertical*velocidad);
-
+        CheckForEncounters();
 
     }
 
@@ -69,4 +76,27 @@ public class jugadorController : MonoBehaviour
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
     }
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = this.transform.position;
+     }
+    void CheckForEncounters()
+    {
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Enemigos);
+
+        foreach (Collider2D collider in colliders)
+        {
+            Debug.Log("¡Batalla iniciada con el enemigo!");
+
+            SceneManager.LoadScene(Battle);
+        }
+    }
+    
 }
+

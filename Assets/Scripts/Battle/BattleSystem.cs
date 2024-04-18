@@ -1,10 +1,13 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public enum CharacterState { ALIVE, DEAD }
@@ -16,14 +19,17 @@ public class BattleSystem : MonoBehaviour
     private const int maxCharacters = 4;
 
     public GameObject[] playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
+
+    
+    
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
     Unit playerUnit;
     Unit enemyUnit;
-    Unit enemyUnits = new Unit();
+    
 
     public Text dialogueText;
 
@@ -33,13 +39,38 @@ public class BattleSystem : MonoBehaviour
     public BattleState state;
     public CharacterState characterState;
 
+    public string DragonCave_1;
+
+    public int randomNumber;
+    
 
     void Start()
     {
+        randomNumber = UnityEngine.Random.Range(0, 3);
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
+
+    
+
+    IEnumerator SetupBattle()
+    {
+        
+        SpawnCharater();
+
+        GameObject enemyGO = Instantiate(enemyPrefab[randomNumber], enemyBattleStation);
+        enemyUnit = enemyGO.GetComponent<Unit>();
+
+        dialogueText.text = "Un " + enemyUnit.unitName + " se acerca...";
+
+        enemyHUD.SetHUD(enemyUnit);
+
+        yield return new WaitForSeconds(2f);
+
+        state = BattleState.PLAYERTURN;
+        PlayerTurn();
+    }
     void SpawnCharater()
     {
         GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
@@ -49,26 +80,6 @@ public class BattleSystem : MonoBehaviour
 
         playerGO.transform.parent = transform;
 
-    }
-
-   
-
-    IEnumerator SetupBattle()
-    {
-        SpawnCharater();
-
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
-
-        dialogueText.text = "Un" + enemyUnit.unitName + "se acerca...";
-
-
-        enemyHUD.SetHUD(enemyUnit);
-
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
     }
 
 
@@ -136,12 +147,19 @@ public class BattleSystem : MonoBehaviour
         }
 
     }
+    void ChangeScene()
+    {
+        
+        SceneManager.LoadScene(DragonCave_1);
+
+    }
 
     void EndBattle()
     {
         if (state == BattleState.WON)
         {
             dialogueText.text = "Has ganado el combate";
+            ChangeScene();
         }
         else if (state == BattleState.LOST)
         {
@@ -195,6 +213,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PLAYERTURN;
         PlayerTurn();
     }
+
 
 
     public void OnAttackButton()

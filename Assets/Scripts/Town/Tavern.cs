@@ -17,7 +17,7 @@ public class Tavern : MonoBehaviour
     {
         gestor = GameObject.Find("Gestor").GetComponent<Gestor>();
         Debug.Log("Click");
-        gestor.new_hero(2);
+        gestor.new_hero(selectedHero);
         Debug.Log(gestor.getHeroData());
     }
 }

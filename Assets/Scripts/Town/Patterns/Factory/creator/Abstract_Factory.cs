@@ -5,5 +5,5 @@ using Product;
 
 public interface Abstract_Factory
 {
-    Hero CreateHero(int pHeroClass);
+   public Hero CreateHero (int pHeroClass);
 }

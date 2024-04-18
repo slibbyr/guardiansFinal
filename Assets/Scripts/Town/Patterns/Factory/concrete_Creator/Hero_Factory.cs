@@ -10,11 +10,19 @@ public class Hero_Factory : Abstract_Factory
     {
         switch (pHeroClass)
         {
-            case 1:
-                return new Paladin("Paladin", 1, 5, 50, 50, 25);
+            case 2:
+                Debug.Log("starting new Paladin");
+                return new Paladin("Paladin", 2, 5, 50, 50, 25);
+                Debug.Log("created Paladin");
+                break;
+            case 3:
+                Debug.Log("starting new Elf");
+                return new Elf("Elf", 3, 5, 50, 50, 25);
+                Debug.Log("created Elf");
                 break;
             default:
-                return new Paladin();
+                return new Paladin("Paladin", 2, 5, 50, 50, 25);
+                Debug.Log("new Default");
                 break;
         }
     }

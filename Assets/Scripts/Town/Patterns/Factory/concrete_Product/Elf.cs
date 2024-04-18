@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace ConcreteProduct
 {
-    public class Paladin : Hero
+    public class Elf : Hero
     {
-        public Paladin()
+        public Elf()
         {
             
         }
 
-        public Paladin(string name, int heroClass, int defense, int maxHP, int currentHP, int attack)
+        public Elf(string name, int heroClass, int defense, int maxHP, int currentHP, int attack)
         {
             Name = name;
             HeroClass = heroClass;

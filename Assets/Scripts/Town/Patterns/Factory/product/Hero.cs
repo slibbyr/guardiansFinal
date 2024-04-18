@@ -13,9 +13,9 @@ namespace Product
         private int currentHP;
         private int attack;
 
-        public Hero(string nombre, int heroClass, int defense, int maxHP, int currentHP, int attack)
+        public Hero(string name, int heroClass, int defense, int maxHP, int currentHP, int attack)
         {
-            this.name = nombre;
+            this.name = name;
             this.heroClass = heroClass;
             this.defense = defense;
             this.maxHP = maxHP;

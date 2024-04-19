@@ -7,6 +7,7 @@ public class Tavern : MonoBehaviour
 {
     public int selectedHero = 0;
     public Gestor gestor;
+    public GameObject teamGameObject;
 
     public void selectHero(int pClass)
     {
@@ -16,8 +17,19 @@ public class Tavern : MonoBehaviour
     public void recluteHero()
     {
         gestor = GameObject.Find("Gestor").GetComponent<Gestor>();
-        Debug.Log("Click");
         gestor.new_hero(selectedHero);
         Debug.Log(gestor.getHeroData());
+    }
+
+    public void ToggleTeamGameObject()
+    {
+        if (teamGameObject != null)
+        {
+            teamGameObject.SetActive(!teamGameObject.activeSelf);
+        }
+        else
+        {
+            Debug.LogWarning("No se ha asignado un GameObject 'Team' en el Inspector.");
+        }
     }
 }

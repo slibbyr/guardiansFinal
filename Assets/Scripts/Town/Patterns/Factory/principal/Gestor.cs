@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gestor : MonoBehaviour, IDataPersistence
+public class Gestor : MonoBehaviour
 {
     private  List<Hero> arrHeroes = new List<Hero>();
     private static Abstract_Factory gFabric;
@@ -17,6 +17,7 @@ public class Gestor : MonoBehaviour, IDataPersistence
     {
         Debug.Log("Start adding array object");
         AddHeroArray(gFabric.CreateHero(pHeroClass));
+        PlayerManager.Instance.AddHeroToTeam(pHeroClass);
         Debug.Log("Finish adding array");
     }
     private void AddHeroArray(Hero pHero)
@@ -36,13 +37,4 @@ public class Gestor : MonoBehaviour, IDataPersistence
         return mResult;
     }
 
-    public void LoadData(GameData data)
-    {
-        this.arrHeroes = data.heroes;
-    }
-
-    public void SaveData(GameData data)
-    {
-        data.heroes = this.arrHeroes;
-    }
 }

@@ -2371,7 +2371,7 @@ MonoBehaviour:
   enemyHUD: {fileID: 1290496122}
   state: 0
   characterState: 0
-  DragonCave_1: DragonCave 1
+  DragonCave_1: Dragon Cave 1
   randomNumber: 0
 --- !u!4 &1714929644
 Transform:

@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
@@ -14,7 +12,9 @@ public enum CharacterState { ALIVE, DEAD }
 
 public class BattleSystem : MonoBehaviour
 {
-
+    
+    
+    
     private int currentCharacterIndex = 0;
     private const int maxCharacters = 4;
 
@@ -38,21 +38,26 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
     public CharacterState characterState;
-
     public string DragonCave_1;
+
+    private CommandInvoker _invoker;
 
     public int randomNumber;
     
 
     void Start()
     {
-        randomNumber = UnityEngine.Random.Range(0, 3);
+        randomNumber = Random.Range(0, 3);
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
-
     
+
+    public void ChangeScene()
+    {
+        SceneManager.LoadScene(DragonCave_1);
+    }
 
     IEnumerator SetupBattle()
     {
@@ -136,6 +141,7 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.LOST;
                 EndBattle();
+                
             }
 
         }
@@ -147,12 +153,7 @@ public class BattleSystem : MonoBehaviour
         }
 
     }
-    void ChangeScene()
-    {
-        
-        SceneManager.LoadScene(DragonCave_1);
-
-    }
+    
 
     void EndBattle()
     {
@@ -160,6 +161,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "Has ganado el combate";
             ChangeScene();
+            
         }
         else if (state == BattleState.LOST)
         {
@@ -167,10 +169,10 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+
     void PlayerTurn()
     {
-
-        dialogueText.text = "Escogue tu accion:";
+        dialogueText.text = "Que vas a hacer?";
     }
 
     IEnumerator PlayerHeal()
@@ -214,6 +216,14 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
+    public void OnChangeButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerChange());
+    }
+
 
 
     public void OnAttackButton()
@@ -222,14 +232,6 @@ public class BattleSystem : MonoBehaviour
             return;
 
         StartCoroutine(PlayerAttack());
-    }
-
-    public void OnChangeButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerChange());
     }
 
 
@@ -242,4 +244,48 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerHeal());
     }
 
+
+    public void ChangeScenes()
+    {
+        _invoker.InvokeCommand();
+    }
+
 }
+
+
+//command
+public interface ICommand
+{
+    void Execute();
+}
+
+
+public class SceneCommand : ICommand
+
+{
+    public string DragonCave_1;
+
+    public void Execute()
+    {
+        SceneManager.LoadScene(DragonCave_1);
+
+    }
+}
+
+
+public class CommandInvoker : MonoBehaviour
+{
+    private ICommand _command;
+
+    public void SetCommand(ICommand command)
+    {
+        _command = command;
+    }
+
+    public void InvokeCommand()
+    {
+        _command.Execute();
+    }
+}
+
+

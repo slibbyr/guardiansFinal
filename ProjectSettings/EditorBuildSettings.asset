@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/DragonCave 1.unity
     guid: 23fab8a0dad82fd4f866787a716025de
   - enabled: 1
-    path: Assets/Scenes/escenaBatalla.unity
+    path: Assets/Scenes/Battle.unity
     guid: b6e145268ed77464da785c77d914d69f
   m_configObjects: {}

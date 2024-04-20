@@ -6,16 +6,16 @@ namespace Product
 {
     public abstract class Hero
     {
-        private string nombre;
+        private string name;
         private int heroClass;
         private int defense;
         private int maxHP;
         private int currentHP;
         private int attack;
 
-        public Hero(string nombre, int heroClass, int defense, int maxHP, int currentHP, int attack)
+        public Hero(string name, int heroClass, int defense, int maxHP, int currentHP, int attack)
         {
-            this.nombre = nombre;
+            this.name = name;
             this.heroClass = heroClass;
             this.defense = defense;
             this.maxHP = maxHP;
@@ -25,7 +25,7 @@ namespace Product
 
         public Hero()
         {
-            this.nombre = "";
+            this.name = "";
             this.heroClass = 0;
             this.defense = 0;
             this.maxHP = 0;
@@ -33,10 +33,10 @@ namespace Product
             this.attack = 0;
         }
 
-        public string Nombre
+        public string Name
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         public int HeroClass

@@ -14,23 +14,27 @@ PrefabInstance:
       objectReference: {fileID: -1192095154, guid: 8675a9594ab479d46b5c186d56d37696, type: 3}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: maxHP
-      value: 2
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: damage
-      value: 2
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: defense
-      value: 2
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: unitName
-      value: Player 2
+      value: Elfo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
+      propertyPath: UnitClass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: currentHP
-      value: 2
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6161739387118243267, guid: 76abd10c79c93194091a230097fbaab3, type: 3}
       propertyPath: unitLevel

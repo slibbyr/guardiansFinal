@@ -1,27 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
-public enum CharacterState { ALIVE, DEAD }
 
 public class BattleSystem : MonoBehaviour
 {
-
+    
+    
+    
     private int currentCharacterIndex = 0;
     private const int maxCharacters = 4;
 
     public GameObject[] playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject[] enemyPrefab;
+
+    
+    
 
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
     Unit playerUnit;
     Unit enemyUnit;
+    
 
     public Text dialogueText;
 
@@ -29,36 +36,36 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     public BattleState state;
-    public CharacterState characterState;
+    public string DragonCave_1;
 
+    private CommandInvoker _invoker;
+
+    public int randomNumber;
+    
 
     void Start()
     {
+        randomNumber = Random.Range(0, 3);
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
-    void SpawnCharater()
+    
+
+    public void ChangeScene()
     {
-        GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
-
-
-        playerHUD.SetHUD(playerUnit);
-
-        playerGO.transform.parent = transform;
-
+        SceneManager.LoadScene(DragonCave_1);
     }
 
     IEnumerator SetupBattle()
     {
+        
         SpawnCharater();
 
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+        GameObject enemyGO = Instantiate(enemyPrefab[randomNumber], enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
-
+        dialogueText.text = "Un " + enemyUnit.unitName + " se acerca...";
 
         enemyHUD.SetHUD(enemyUnit);
 
@@ -67,6 +74,16 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PLAYERTURN;
         PlayerTurn();
     }
+    void SpawnCharater()
+    {
+        GameObject playerGO = Instantiate(playerPrefab[currentCharacterIndex], playerBattleStation);
+        playerUnit = playerGO.GetComponent<Unit>();
+
+        playerHUD.SetHUD(playerUnit);
+
+        playerGO.transform.parent = transform;
+
+    }
 
 
     IEnumerator PlayerAttack()
@@ -74,7 +91,7 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage, enemyUnit.defense);
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful!";
+        dialogueText.text = "El ataque fue exitoso";
 
         yield return new WaitForSeconds(2f);
 
@@ -94,7 +111,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = enemyUnit.unitName + " ataca!";
 
         yield return new WaitForSeconds(1f);
 
@@ -122,6 +139,7 @@ public class BattleSystem : MonoBehaviour
             {
                 state = BattleState.LOST;
                 EndBattle();
+                
             }
 
         }
@@ -133,23 +151,26 @@ public class BattleSystem : MonoBehaviour
         }
 
     }
+    
 
     void EndBattle()
     {
         if (state == BattleState.WON)
         {
-            dialogueText.text = "You won the battle!";
+            dialogueText.text = "Has ganado el combate";
+            ChangeScene();
+            
         }
         else if (state == BattleState.LOST)
         {
-            dialogueText.text = "You were defeated.";
+            dialogueText.text = "Has sido derrotado";
         }
     }
 
+
     void PlayerTurn()
     {
-
-        dialogueText.text = "Choose an action:";
+        dialogueText.text = "Que vas a hacer?";
     }
 
     IEnumerator PlayerHeal()
@@ -157,7 +178,7 @@ public class BattleSystem : MonoBehaviour
         playerUnit.Heal(5);
 
         playerHUD.SetHP(playerUnit.currentHP);
-        dialogueText.text = "You feel renewed strength!";
+        dialogueText.text = "Te has curado";
 
         yield return new WaitForSeconds(2f);
 
@@ -171,7 +192,7 @@ public class BattleSystem : MonoBehaviour
 
         SpawnCharater();
 
-        dialogueText.text = "Changed character";
+        dialogueText.text = "Cambio de personaje";
 
         yield return new WaitForSeconds(2f);
 
@@ -185,21 +206,12 @@ public class BattleSystem : MonoBehaviour
 
         SpawnCharater();
 
-        dialogueText.text = "Changed character";
+        dialogueText.text = "Cambio de personaje";
 
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
-    }
-
-
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerAttack());
     }
 
     public void OnChangeButton()
@@ -212,6 +224,16 @@ public class BattleSystem : MonoBehaviour
 
 
 
+    public void OnAttackButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+
+        StartCoroutine(PlayerAttack());
+    }
+
+
+
     public void OnHealButton()
     {
         if (state != BattleState.PLAYERTURN)
@@ -220,4 +242,48 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerHeal());
     }
 
+
+    public void ChangeScenes()
+    {
+        _invoker.InvokeCommand();
+    }
+
 }
+
+
+//command
+public interface Command
+{
+    void Execute();
+}
+
+
+public class SceneCommand : Command
+
+{
+    public string DragonCave_1;
+
+    public void Execute()
+    {
+        SceneManager.LoadScene(DragonCave_1);
+
+    }
+}
+
+
+public class CommandInvoker : MonoBehaviour
+{
+    private Command _command;
+
+    public void SetCommand(Command command)
+    {
+        _command = command;
+    }
+
+    public void InvokeCommand()
+    {
+        _command.Execute();
+    }
+}
+
+

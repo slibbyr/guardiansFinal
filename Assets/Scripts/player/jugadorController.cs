@@ -88,6 +88,7 @@ public class jugadorController : MonoBehaviour, IDataPersistence
      }
     void CheckForEncounters()
     {
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Enemigos);
 
         foreach (Collider2D collider in colliders)

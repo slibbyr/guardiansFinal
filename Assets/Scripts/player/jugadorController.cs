@@ -37,7 +37,7 @@ public class jugadorController : MonoBehaviour
     {
         procesarMovimiento();
         movimiento();
-        CheckForPotion();
+        //CheckForPotion();
     }
 
     void movimiento() {
@@ -86,6 +86,7 @@ public class jugadorController : MonoBehaviour
     void CheckForEncounters()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Enemigos);
+        Collider2D[] collidersDecorador = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Decorador);
 
         foreach (Collider2D collider in colliders)
         {
@@ -93,9 +94,15 @@ public class jugadorController : MonoBehaviour
 
             SceneManager.LoadScene(Battle);
         }
+        foreach (Collider2D collider in collidersDecorador)
+        {
+            Debug.Log("La velocidad del jugador se ha incrementado");
+
+            //gestor.HandleDecoratorCollision();
+        }
     }
 
-    private void CheckForPotion()
+    /*private void CheckForPotion()
     {
 
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Decorador);
@@ -107,7 +114,7 @@ public class jugadorController : MonoBehaviour
 
             //gestor.HandleDecoratorCollision();
         }
-    }
+    }*/
 
 }
 

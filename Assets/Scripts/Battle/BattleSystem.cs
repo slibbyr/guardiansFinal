@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
-public enum CharacterState { ALIVE, DEAD }
 
 public class BattleSystem : MonoBehaviour
 {
@@ -37,7 +36,6 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     public BattleState state;
-    public CharacterState characterState;
     public string DragonCave_1;
 
     private CommandInvoker _invoker;
@@ -254,13 +252,13 @@ public class BattleSystem : MonoBehaviour
 
 
 //command
-public interface ICommand
+public interface Command
 {
     void Execute();
 }
 
 
-public class SceneCommand : ICommand
+public class SceneCommand : Command
 
 {
     public string DragonCave_1;
@@ -275,9 +273,9 @@ public class SceneCommand : ICommand
 
 public class CommandInvoker : MonoBehaviour
 {
-    private ICommand _command;
+    private Command _command;
 
-    public void SetCommand(ICommand command)
+    public void SetCommand(Command command)
     {
         _command = command;
     }

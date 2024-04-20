@@ -107,7 +107,7 @@ public class jugadorController : MonoBehaviour, IDataPersistence
         {
             Debug.Log("La velocidad del jugador se ha incrementado");
 
-            //gestor.HandleDecoratorCollision();
+            gestor.HandleDecoratorCollision();
         }
     }
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 
 public class jugadorController : MonoBehaviour
@@ -14,6 +14,10 @@ public class jugadorController : MonoBehaviour
     private bool mirandoDerecha;
     private Animator animator;
     public LayerMask Enemigos;
+    public LayerMask Decorador;
+    private GestorDecorador gestor;
+
+
 
     public string Battle;
 
@@ -23,6 +27,8 @@ public class jugadorController : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        gestor = GestorDecorador.GetInstancia();
+
 
     }
 
@@ -31,47 +37,47 @@ public class jugadorController : MonoBehaviour
     {
         procesarMovimiento();
         movimiento();
-
+        CheckForPotion();
     }
 
-    void movimiento(){
+    void movimiento() {
         float movHorizontal = Input.GetAxis("Horizontal");
         float movVertical = Input.GetAxis("Vertical");
 
-        rbody.velocity = new Vector2(movHorizontal*velocidad, movVertical*velocidad);
+        rbody.velocity = new Vector2(movHorizontal * velocidad, movVertical * velocidad);
         CheckForEncounters();
 
     }
 
-    void procesarMovimiento(){
+    void procesarMovimiento() {
         float inputMovimeinto = Input.GetAxis("Horizontal");
         float inputVertical = Input.GetAxis("Vertical");
-    
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            animator.SetBool("isRunDer",true);
-            animator.SetBool("isRunFront",false);
-            animator.SetBool("isRunBack",false);
-        }else if(Input.GetKey(KeyCode.RightArrow)){
-            animator.SetBool("isRunDer",true);
-            animator.SetBool("isRunFront",false);
-            animator.SetBool("isRunBack",false);
+
+        if (Input.GetKey(KeyCode.LeftArrow)) {
+            animator.SetBool("isRunDer", true);
+            animator.SetBool("isRunFront", false);
+            animator.SetBool("isRunBack", false);
+        } else if (Input.GetKey(KeyCode.RightArrow)) {
+            animator.SetBool("isRunDer", true);
+            animator.SetBool("isRunFront", false);
+            animator.SetBool("isRunBack", false);
         }
-        if(Input.GetKey(KeyCode.UpArrow)){
-            animator.SetBool("isRunDer",false);
-            animator.SetBool("isRunFront",false);
-            animator.SetBool("isRunBack",true);
-        }else if(Input.GetKey(KeyCode.DownArrow)){
-            animator.SetBool("isRunDer",false);
-            animator.SetBool("isRunFront",true);
-            animator.SetBool("isRunBack",false);
+        if (Input.GetKey(KeyCode.UpArrow)) {
+            animator.SetBool("isRunDer", false);
+            animator.SetBool("isRunFront", false);
+            animator.SetBool("isRunBack", true);
+        } else if (Input.GetKey(KeyCode.DownArrow)) {
+            animator.SetBool("isRunDer", false);
+            animator.SetBool("isRunFront", true);
+            animator.SetBool("isRunBack", false);
         }
-        
-        rbody.velocity = new Vector2(inputMovimeinto*velocidad, rbody.velocity.y);
+
+        rbody.velocity = new Vector2(inputMovimeinto * velocidad, rbody.velocity.y);
         gestionarOrientacion(-inputMovimeinto);
     }
 
-    void gestionarOrientacion(float inputMovimiento){
-       if ((mirandoDerecha == true && inputMovimiento < 0) || (mirandoDerecha == false && inputMovimiento > 0)){
+    void gestionarOrientacion(float inputMovimiento) {
+        if ((mirandoDerecha == true && inputMovimiento < 0) || (mirandoDerecha == false && inputMovimiento > 0)) {
             mirandoDerecha = !mirandoDerecha;
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
@@ -88,5 +94,20 @@ public class jugadorController : MonoBehaviour
             SceneManager.LoadScene(Battle);
         }
     }
+
+    private void CheckForPotion()
+    {
+
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, boxCollider2D.size, 0, Decorador);
+        Debug.Log("1");
+
+        foreach (Collider2D collider in colliders)
+        {
+            Debug.Log("La velocidad del jugador se ha incrementado");
+
+            //gestor.HandleDecoratorCollision();
+        }
+    }
+
 }
 
